@@ -84,7 +84,7 @@ if uploaded_file is not None:
             st.subheader("Monthly Timeline")
             timeline = helper.monthly_timeline(selected_user, df)
             fig, ax =  plt.subplots(figsize=(6,4))
-            ax.plot(timeline["time"], timeline["msgs"])
+            ax.plot(timeline["time"], timeline["msgs"], color = "green")
             plt.xticks(rotation = "vertical")
             st.pyplot(fig)
 
@@ -93,7 +93,7 @@ if uploaded_file is not None:
             st.subheader("Daily Timeline")
             daily_timeline = helper.daily_timeline(selected_user, df)
             fig, ax = plt.subplots(figsize=(6,5))
-            ax.plot(daily_timeline['only_date'], daily_timeline['msgs'])
+            ax.plot(daily_timeline['only_date'], daily_timeline['msgs'], color = "green")
             plt.xticks(rotation='vertical')
             st.pyplot(fig)
 
@@ -134,7 +134,7 @@ if uploaded_file is not None:
             most_common_df = helper.most_common_words(selected_user,df)
             if not most_common_df.empty:
                 fig,ax = plt.subplots()
-                ax.barh(most_common_df[0],most_common_df[1])
+                ax.barh(most_common_df[0],most_common_df[1], color = "green")
                 plt.xticks(rotation='vertical')
                 st.pyplot(fig)
             else:
@@ -155,5 +155,4 @@ if uploaded_file is not None:
                 ax.pie(emoji_df["Count"].head(), labels=emoji_df["Emoji"].head(), autopct="%0.2f%%")
                 st.pyplot(fig)
             else:
-
                 st.write("No emojis found for this user.") 

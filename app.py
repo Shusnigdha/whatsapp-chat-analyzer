@@ -2,6 +2,41 @@ import streamlit as st
 import preprocessor
 import helper
 import matplotlib.pyplot as plt
+import base64
+
+def set_background(image_file):
+    with open(image_file, "rb") as img:
+        encoded = base64.b64encode(img.read()).decode()
+
+    bg_style = f"""
+    <style>
+    .stApp {{
+        background-image: url("data:image/jpg;base64,{encoded}");
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        background-attachment: fixed;
+    }}
+    </style>
+    """
+
+    st.markdown(bg_style, unsafe_allow_html=True)
+
+set_background("bg.jpg") 
+
+st.markdown("""
+<style>
+/* Sidebar background */
+section[data-testid="stSidebar"] {
+    background-color: #1C4136;
+}
+
+/* Sidebar text color */
+section[data-testid="stSidebar"] * {
+    color: white !important;
+}
+</style>
+""", unsafe_allow_html=True)
 
 st.sidebar.title("WhatsApp Chat Analyzer")
 
@@ -120,4 +155,5 @@ if uploaded_file is not None:
                 ax.pie(emoji_df["Count"].head(), labels=emoji_df["Emoji"].head(), autopct="%0.2f%%")
                 st.pyplot(fig)
             else:
+
                 st.write("No emojis found for this user.") 
